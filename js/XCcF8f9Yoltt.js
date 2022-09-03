@@ -1,0 +1,1 @@
+jQuery,$("#menuToggle").on("click",(function(){$("#mainmenu").toggleClass("menu-open"),$("#menuToggle").toggleClass("menu-openfix")}));
