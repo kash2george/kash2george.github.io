@@ -19,8 +19,8 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 90%; /* Take up 90% of the height */
-    transform: scaleY(-1); /* Flip vertically */
+    height: 90%; /* Takes up 90% of the height */
+    transform: scaleY(-1); /* Flips vertically */
     z-index: 1; /* Position behind the result */
 }
 
@@ -48,8 +48,8 @@ body {
 }
 
 .left {
-    left: 20%; /* Position Part 1 to the left, align with curve's x = -20 */
-    bottom: 10%; /* Adjust Part 1 to be just above the input-section */
+    left: 20%; /* Position Part 1 to the left */
+    bottom: 15%; /* Position Part 1 above the input-section */
 }
 
 .top {
@@ -59,13 +59,13 @@ body {
 }
 
 .right {
-    right: 20%; /* Position Part 3 to the right, align with curve's x = 20 */
-    bottom: 10%; /* Adjust Part 3 to be just above the input-section */
+    right: 20%; /* Position Part 3 to the right */
+    bottom: 15%; /* Position Part 3 above the input-section */
 }
 
 .input-section {
     width: 100%;
-    height: 10%; /* Take up 10% of the height */
+    height: 10%; /* Takes up 10% of the height */
     background-color: white;
     text-align: center;
     border-top: 2px solid black; /* Straight line */
@@ -80,9 +80,4 @@ input {
     padding: 10px;
     width: 180px;
     margin-bottom: 10px;
-}
-
-button {
-    padding: 10px 20px;
-    cursor: pointer;
 }
