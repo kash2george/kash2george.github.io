@@ -1,88 +1,25 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background-color: #f0f0f0;
-}
-
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-}
-
-#curveCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 90%; /* Take up 90% of the height */
-    transform: scaleY(-1); /* Flip vertically */
-    z-index: 1; /* Position behind the result */
-}
-
-.result-section {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2; /* Ensure it is on top of the canvas */
-}
-
-.result {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.part {
-    position: absolute;
-    font-size: 1.2em;
-    font-weight: bold;
-}
-
-.left {
-    left: 20%; /* Position Part 1 to the left, align with curve's x = -20 */
-    bottom: 10%; /* Adjust Part 1 to be just above the input-section */
-}
-
-.top {
-    left: 50%; /* Center Part 2 horizontally */
-    top: 10px; /* Align Part 2 to the top */
-    transform: translateX(-50%);
-}
-
-.right {
-    right: 20%; /* Position Part 3 to the right, align with curve's x = 20 */
-    bottom: 10%; /* Adjust Part 3 to be just above the input-section */
-}
-
-.input-section {
-    width: 100%;
-    height: 10%; /* Take up 10% of the height */
-    background-color: white;
-    text-align: center;
-    border-top: 2px solid black; /* Straight line */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 3; /* Ensure it is on top of everything */
-}
-
-input {
-    padding: 10px;
-    width: 180px;
-    margin-bottom: 10px;
-}
-
-button {
-    padding: 10px 20px;
-    cursor: pointer;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Splitter with Curve</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <canvas id="curveCanvas"></canvas>
+        <div class="result-section">
+            <div class="result">
+                <p id="part1" class="part left"></p>
+                <p id="part2" class="part top"></p>
+                <p id="part3" class="part right"></p>
+            </div>
+        </div>
+        <div class="input-section">
+            <input type="text" id="wordInput" placeholder="Enter a word">
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
