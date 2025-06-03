@@ -14,7 +14,7 @@ function splitWord() {
     const minLength = Math.floor(length / 3);
     const remainder = length % 3;
 
-    // Adjust part lengths to ensure part1 and part3 have the same number of letters
+    // Spread remainder: first to part1, second to part3
     let part1Length = minLength + (remainder > 0 ? 1 : 0);
     let part3Length = minLength + (remainder > 1 ? 1 : 0);
     let part2Length = length - (part1Length + part3Length);
