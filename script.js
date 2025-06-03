@@ -1,28 +1,6 @@
 function splitWord() {
     const word = document.getElementById("wordInput").value;
-    const length = word.length;
-
-    if (length === 0) {
-        // Clear results if no input
-        document.getElementById("part1").textContent = '';
-        document.getElementById("part2").textContent = '';
-        document.getElementById("part3").textContent = '';
-        return;
-    }
-
-    // Calculate part lengths
-    const minLength = Math.floor(length / 3);
-    const remainder = length % 3;
-
-    // Adjust part lengths to ensure part1 and part3 have the same number of letters
-    let part1Length = minLength + (remainder > 0 ? 1 : 0);
-    let part3Length = minLength + (remainder > 1 ? 1 : 0);
-    let part2Length = length - (part1Length + part3Length);
-
-    // Extract parts based on calculated lengths
-    const part1 = word.slice(0, part1Length);
-    const part2 = word.slice(part1Length, part1Length + part2Length);
-    const part3 = word.slice(part1Length + part2Length);
+    const { part1, part2, part3 } = calculateParts(word);
 
     document.getElementById("part1").textContent = part1;
     document.getElementById("part2").textContent = part2;
