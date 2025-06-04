@@ -1,32 +1,42 @@
-function splitWord() {
-    const word = document.getElementById("wordInput").value;
-    const length = word.length;
+const API_BASE = '/backend/public';
 
-    if (length === 0) {
-        // Clear results if no input
-        document.getElementById("part1").textContent = '';
-        document.getElementById("part2").textContent = '';
-        document.getElementById("part3").textContent = '';
+async function getCsrfCookie() {
+    await fetch(`${API_BASE}/sanctum/csrf-cookie`, {
+        credentials: 'include'
+    });
+}
+
+async function splitWord() {
+    const word = document.getElementById('wordInput').value;
+    if (!word) {
+        document.getElementById('part1').textContent = '';
+        document.getElementById('part2').textContent = '';
+        document.getElementById('part3').textContent = '';
         return;
     }
 
-    // Calculate part lengths
-    const minLength = Math.floor(length / 3);
-    const remainder = length % 3;
+    await getCsrfCookie();
 
-    // Adjust part lengths to ensure part1 and part3 have the same number of letters
-    let part1Length = minLength + (remainder > 0 ? 1 : 0);
-    let part3Length = minLength + (remainder > 1 ? 1 : 0);
-    let part2Length = length - (part1Length + part3Length);
+    const response = await fetch(`${API_BASE}/api/split-word`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({ word })
+    });
 
-    // Extract parts based on calculated lengths
-    const part1 = word.slice(0, part1Length);
-    const part2 = word.slice(part1Length, part1Length + part2Length);
-    const part3 = word.slice(part1Length + part2Length);
+    if (!response.ok) {
+        console.error('Split failed');
+        return;
+    }
 
-    document.getElementById("part1").textContent = part1;
-    document.getElementById("part2").textContent = part2;
-    document.getElementById("part3").textContent = part3;
+    const data = await response.json();
+    document.getElementById('part1').textContent = data.part1;
+    document.getElementById('part2').textContent = data.part2;
+    document.getElementById('part3').textContent = data.part3;
 }
 
 function drawCurve() {
@@ -72,3 +82,67 @@ document.getElementById('wordInput').addEventListener('keypress', function(event
         splitWord(); // Call splitWord function on Enter key press
     }
 });
+
+async function register(name, email, password) {
+    await getCsrfCookie();
+    return fetch(`${API_BASE}/api/register`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({ name, email, password })
+    });
+}
+
+async function login(email, password) {
+    await getCsrfCookie();
+    return fetch(`${API_BASE}/api/login`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({ email, password })
+    });
+}
+
+async function logout() {
+    await getCsrfCookie();
+    return fetch(`${API_BASE}/api/logout`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    });
+}
+
+async function currentUser() {
+    await getCsrfCookie();
+    const res = await fetch(`${API_BASE}/api/user`, {
+        credentials: 'include',
+        headers: {
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    });
+    return res.json();
+}
+
+async function splitHistory() {
+    await getCsrfCookie();
+    const res = await fetch(`${API_BASE}/api/split-history`, {
+        credentials: 'include',
+        headers: {
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    });
+    return res.json();
+}
